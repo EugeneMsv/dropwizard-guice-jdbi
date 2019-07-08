@@ -1,12 +1,12 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Eugene Moiseev
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/myservice/myservice.jar", "server" ,"/usr/share/myservice/app-config.yml"]
+LABEL maintainer=Eugene_Moiseev
 
+ARG JAR_FILE=build/libs/dropwizard-guice-jdbi-1.0-SNAPSHOT-all.jar
+ARG APP_CONFIG=config/app-config.yml
 
-# Add the service itself
-ENV JAR_FILE dropwizard-guice-jdbi-1.0-SNAPSHOT-all.jar
-ENV APP_CONFIG app-config.yml
+COPY ${APP_CONFIG} /usr/share/myservice/app-config.yml
+COPY ${JAR_FILE} /usr/share/myservice/myservice.jar
 
-COPY config/${APP_CONFIG} /usr/share/myservice/app-config.yml
-COPY build/libs/${JAR_FILE} /usr/share/myservice/myservice.jar
+ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/myservice/myservice.jar", "server" ]
+CMD ["/usr/share/myservice/app-config.yml"]

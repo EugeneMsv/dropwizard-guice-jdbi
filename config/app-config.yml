@@ -30,7 +30,7 @@ database:
   password: sa
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost:32767/sa?useSSL=false&currentSchema=public
+  url: jdbc:postgresql://${POSTGRES_HOST:-localhost}:${POSTGRES_PORT:-32767}/sa?useSSL=false&currentSchema=public
 
 
   # the SQL query to run when validating a connection's liveness

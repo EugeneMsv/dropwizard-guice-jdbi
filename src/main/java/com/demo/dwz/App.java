@@ -5,6 +5,8 @@ import com.demo.dwz.hook.PlayerDaoPreparingApplicationManagedHook;
 import com.demo.dwz.resource.SimpleResource;
 import com.google.inject.Injector;
 import io.dropwizard.Application;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -27,6 +29,10 @@ public class App extends Application<AppConfiguration> {
 
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
+        bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false)
+                ));
         guiceBundle = new GuiceBundle(GuiceBeanModule.class, GuicePropsModule.class);
         bootstrap.addBundle(guiceBundle);
         bootstrap.addBundle(postgresJdbiBundle);
