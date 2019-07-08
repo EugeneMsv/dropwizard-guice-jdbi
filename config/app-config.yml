@@ -1,0 +1,37 @@
+applicationName: dwz-guice-jdbi
+defaultPlayer: Bill
+
+swagger:
+  resourcePackage: com.demo.dwz.resource
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  appenders:
+    #    - type: console
+    - type: console
+      threshold: INFO
+#      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      logFormat: "%d{HH:mm:ss.SSS} %highlight(%-5level) [%thread] %cyan(%logger{36}) - %highlight(%msg%n)"
+#      currentLogFilename: /tmp/application.log
+#      archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
+#      archivedFileCount: 7
+      timeZone: UTC
+#      maxFileSize: 10MB
+database:
+  # the name of your JDBC driver
+  driverClass: org.postgresql.Driver
+
+  # the username
+  user: sa
+
+  # the password
+  password: sa
+
+  # the JDBC URL
+  url: jdbc:postgresql://localhost:32767/sa?useSSL=false&currentSchema=public
+
+
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "SELECT 1"
